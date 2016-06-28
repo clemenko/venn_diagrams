@@ -1,0 +1,2 @@
+#!/bin/bash
+docker run --rm -it --net=host -v /etc/hosts:/etc/hosts -v /home/$(whoami):/home/pdsh clemenko/pdsh "$@"
