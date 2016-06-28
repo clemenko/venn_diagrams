@@ -1,0 +1,32 @@
+app2:
+  tty: true
+  image: clemenko/demo2
+  links:
+  - redis:redis
+  stdin_open: true
+app1:
+  tty: true
+  image: clemenko/demo1
+  links:
+  - redis:redis
+  stdin_open: true
+redis:
+  restart: 'always'
+  tty: true
+  image: redis
+  command: 'redis-server --appendonly yes'
+  volumes:
+  - /var/lib/redis:/data
+  stdin_open: true
+  labels:
+    io.rancher.scheduler.affinity:host_label: nifi_master=true
+lb:
+  ports:
+  - 80:5000
+  labels:
+    io.rancher.scheduler.global: 'true'
+  tty: true
+  image: rancher/load-balancer-service
+  links:
+  - app1:app1
+  stdin_open: true

@@ -1,0 +1,8 @@
+app2:
+  scale: 1
+app1:
+  scale: 4
+redis:
+  scale: 1
+lb:
+  scale: 1

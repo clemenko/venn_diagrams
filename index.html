@@ -1,0 +1,39 @@
+hello
+<br><br>
+#setup p12-ssh<br>
+openssl pkcs12 -in labnc_186.p12 -out labnc_186_key.pem -nodes -clcerts -nocerts
+<br>
+openssl pkcs12 -in labnc_186.p12 -out labnc_186.pem -nokeys -clcerts
+<br><br>
+
+
+#install docker - CENTOS<br>
+
+curl -s 10.0.141.31/scripts/docker_install.sh | bash
+
+<br><br>
+
+#setup ubuntu<br>
+<pre>
+growpart -u auto /dev/vda 2
+pvresize /dev/vda2
+lvextend /dev/vg_sys/lv_root -r -L +7G
+lvextend /dev/vg_sys/lv_var -r -l 100%FREE
+export PATH=$PATH:/sbin/
+apt-get autoremove
+apt install -y --no-install-recommends ubuntu-mate-core ubuntu-mate-desktop
+apt-add-repository ppa:ubuntu-mate-dev/ppa
+apt-add-repository ppa:ubuntu-mate-dev/trusty-mate
+apt update; apt upgrade -y
+apt install -y --no-install-recommends ubuntu-mate-core ubuntu-mate-desktop
+apt install xrdp
+service xrdp restart
+apt update; apt install -y fonts-liberation
+</pre>
+
+<br><br>
+#setup docker - ubuntu<br>
+<pre>
+curl -s 10.0.141.31/scripts/setup_ubuntu.sh | bash
+</pre>
+
